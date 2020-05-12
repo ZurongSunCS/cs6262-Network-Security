@@ -1,0 +1,61 @@
+---------------------------------------------------------------------------------
+PREREQUISITES
+---------------------------------------------------------------------------------
+The commands in the following instructions are for Linux OS only. If you use some other OS, please look for equivalent commands online.
+
+1) Python version 2 -  You need to have python version 2 for this. We have tested it on 2.7.11 but it should work on other python 2 versions too.
+
+How to check your python version?
+	python --version
+
+If you do not have version 2 - either install it along side other versions or have a VM with version 2 (this is less messy).
+
+
+2) Python modules required (with the versions we used in bracket but it should work with whatever the latest versions are) -
+
+- numpy (1.11.0 and above)
+- scipy (0.18.1)
+- dpkt (1.8.8)
+- matplotlib (1.5.1)
+
+How to install?
+	sudo pip install <module name>
+
+To install all of them in one go 
+	sudo pip install numpy scipy dpkt matplotlib
+
+How to check module version?
+	pip freeze | grep <module name>
+
+
+-----------------------------------------------------------------------------------
+HOW TO RUN THE CODE 
+-----------------------------------------------------------------------------------
+Code is in PAYL directory. :)
+To run the code given,
+	python wrapper.py
+Once you run it, it will take some time to generate the model. Based on the values passed, it will compute false negative and true positive rate.
+Before modifying the code, run the original code given to see how it works and if your setup is correct. 
+
+Now, read the project description to understand what the project task is and modify and run the code.
+
+<<Optional>> Set verbose = True (in wrapper.py) to get the graphs for each model to be generated. This will not be graded but can help you understand the generated models better.
+
+
+-----------------------------------------------------------------------------------
+CODE COMPONENTS 
+-----------------------------------------------------------------------------------
+1) wrapper.py - It is the entry point for the project code. It calls all other functions and modules for the project.
+2) analysis.py - It trains the model and tests it.
+3) distance_and_clustering.py - This module computes different distances and clusters model.
+4) read_pcap.py - It parses the pcap data and makes it ready for the wrapper to use.
+
+
+-----------------------------------------------------------------------------------
+DATA
+-----------------------------------------------------------------------------------
+We have 5 pcap files in PAYL/data directory. We have already written script that reads the files and gives data to the model.
+
+
+All the best !!! 
+Contact us or post on piazza if you run into issues.

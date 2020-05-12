@@ -1,0 +1,49 @@
+ipvar HOME_NET [192.168.0.0/16]
+ipvar EXTERNAL_NET !$HOME_NET  
+######################################################
+#                                                    #
+#       ... FTP ... (infection)                      #
+######################################################
+# HIT
+alert tcp any any -> any 21 (msg:"===================> FTP traffic detected ..."; gid:1001; sid:10000001; rev:001;)
+#
+######################################################
+#                                                    #
+#       ... BUFFER OVERFLOW ... (infection)          #
+######################################################
+#
+# NO HIT
+activate tcp any any -> any 22 (msg:"===============> Possible SSH buffer overflow"; gid:1001; content:"/bin/sh"; activates:1; sid:100000015;)
+dynamic tcp any any -> any 22 (activated_by:1; count:5; sid:100000020; gid:1001;)
+######################################################
+#                                                    #
+#       ... SCAN ... (infection)                     #
+######################################################
+# SCAN HIT
+alert tcp any any -> any 21 (msg:"==================> Christmas Tree Packet detected!! "; gid:1001; flags:FPU; sid:100000010; rev:001;)
+
+######################################################
+#                                                    #
+#       ... DDOS ... (infection)                     #
+######################################################
+# HIT 
+alert tcp any any -> any any (msg:"=================> TCP PING..."; flags:A; ack:0; sid:100000025; gid:1001;)
+#
+# HIT
+alert tcp any any -> $HOME_NET 80 (msg:"================> DDOS (NOP NOP SACK) "; flags:S; flow: stateless; threshold: type both, track by_dst, count 70, seconds 10; sid:100000045;)
+#
+# HIT 
+alert tcp any any -> any any (msg:"=========================>  TCP DOS attack (SYN FLOOD? dup acks/retransmissions)"; seq:>0; ack:>0; sid:100000033;)
+# HIT
+alert tcp any any -> any any (msg:"===================> TCP DOS attack"; flags:A; flow: stateless; detection_filter: track by_src, count 5, seconds 20; sid:100000033;)
+
+# NO HIT
+alert tcp any any -> $HOME_NET any (msg:"===================> Possible GET flood!"; flow:to_server, established; content:"GET", nocase; http_method; detection_filter:track by_src, count 30, seconds 30; metadata: service http; sid:100000084;)
+######################################################
+#                                                    #
+#       ... CNC ...  (cnc)                           #
+######################################################
+# KEYWORD  HIT!!
+alert tcp any any -> any any (msg:"=================> CnC bot reference!"; sid: 100000085; gid:1001; content:"before sending command to bot"; nocase;)
+# XSS
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"===================> XSS"; flow:to_server, established; pcre:"/(\%27)|(\')|(\-\-)|(%23)|(#)/i"; sid:100000031;)

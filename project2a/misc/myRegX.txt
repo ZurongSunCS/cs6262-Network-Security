@@ -1,0 +1,3 @@
+//  my regex expression here
+//  (<\s*?(script)\s*?>.*?<\/\s*?(script)\s*?>)
+//

@@ -1,0 +1,37 @@
+{
+
+  "_comment": "You may modify this file as per your requirements...",
+  "_comment": "You should remove all comments... :(",
+
+  "manifest_version": 1,
+  "name": "tfairchild3-cs6262-proj2",
+  "description": "Detect and thwart an XSS attack",
+  "version": "1.0",
+
+  "browser_action": {
+       "_comment": "You may include your other files here... (ex. popup.html, icon.png)",
+
+
+  },
+
+  "content_scripts": [
+  {
+       "_comment": "matches, run_at, js (if required) etc...",
+
+
+  }
+  ],
+
+  "permissions": [
+
+
+
+  ],
+
+
+  "background": {
+      "scripts": ["xss_detect.js"]
+
+
+  }
+}
